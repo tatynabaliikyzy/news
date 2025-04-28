@@ -1,4 +1,4 @@
-const apikey = 'pub_836359928a70904a4455e852d938c5d7be812'
+const apiKey = "pub_836359928a70904a4455e852d938c5d7be812";
 
 const blogContainer = document.getElementById
 ("bolg-container");
@@ -6,15 +6,15 @@ const blogContainer = document.getElementById
 
 async function fetchRandomNews(){
     try{
-        const apiUrl = `https://newsdata.io/api/1/sources?country=kg&pageSize=10&apikey=${apikey}`
-        const response = await fetch(apiUrl)
-        const data = await response.json()
+        const apiUrl = `https://newsdata.io/api/1/sources?country=kg&pageSize=10&apiKey=${apiKey}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
         // console.log(data);
         return data.articles;
 
     } catch(error){
         console.error("Error fetching random news", error);
-        return []
+        return [];
 
     }
 }
@@ -39,7 +39,7 @@ function displayBlogs(articles){
         blogCard.appendChild(title);
         blogCard.appendChild(description);
         blogContainer.appendChild(blogCard);
-    })
+    });
 }
 
 
@@ -53,4 +53,4 @@ function displayBlogs(articles){
 
     }
 
-})
+}) ();
