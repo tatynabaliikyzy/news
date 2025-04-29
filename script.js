@@ -1,17 +1,24 @@
 const apiKey = "pub_836359928a70904a4455e852d938c5d7be812";
 const blogContainer = document.getElementById("bolg-container");
 
-async function fetchRandomNews() {
+async function fetchNews(query = "") {
     try {
-        const apiUrl = `https://newsdata.io/api/1/latest?country=kg&language=ru&apikey=${apiKey}`;
-        const response = await fetch(apiUrl);
-        console.log("API Response Status:", response.status); 
-        const data = await response.json();
-        console.log("Fetched Data:", data); 
+        let apiUrl = "";
 
-        return data.results; 
+        if (query) {
+            apiUrl = `https://newsdata.io/api/1/latest?country=kg&language=ru&q=${encodeURIComponent(query)}&apikey=${apiKey}`;
+        } else {
+            apiUrl = `https://newsdata.io/api/1/latest?country=kg&category=top&language=ru&apikey=${apiKey}`;
+        }
+
+        const response = await fetch(apiUrl);
+        console.log("API Response Status:", response.status);
+        const data = await response.json();
+        console.log("Fetched Data:", data);
+
+        return data.results;
     } catch (error) {
-        console.error("Error fetching random news", error);
+        console.error("Error fetching news", error);
         return [];
     }
 }
@@ -23,7 +30,7 @@ function displayBlogs(articles) {
         blogCard.classList.add("blog-card");
 
         const img = document.createElement("img");
-        img.src = article.image_url || "https://via.placeholder.com/150"; 
+        img.src = article.image_url || "https://via.placeholder.com/150";
         img.alt = article.title || "No Title";
 
         const title = document.createElement("h2");
@@ -38,12 +45,7 @@ function displayBlogs(articles) {
         blogCard.appendChild(title);
         blogCard.appendChild(description);
 
-        console.log("Article URL:", article.url); 
-
-
-
         blogCard.addEventListener('click', () => {
-            console.log("Opening article at:", article.link); 
             if (article.link) {
                 window.open(article.link, "_blank");
             } else {
@@ -55,22 +57,17 @@ function displayBlogs(articles) {
     });
 }
 
+const searchInput = document.getElementById("search-input");
+const searchButton = document.getElementById("search-button");
 
-
+searchButton.addEventListener('click', async () => {
+    const query = searchInput.value.trim();
+    const articles = await fetchNews(query);
+    displayBlogs(articles);
+});
 
 (async () => {
-    try {
-        const articles = await fetchRandomNews();
-        displayBlogs(articles);
-    } catch (error) {
-        console.error("Error displaying blogs", error);
-    }
+    const articles = await fetchNews();
+    displayBlogs(articles);
 })();
-
-
-
-
-
-
-
 
