@@ -55,6 +55,10 @@ function displayBlogs(articles) {
 
         blogContainer.appendChild(blogCard);
     });
+
+    const date = document.createElement("small");
+date.textContent = new Date(article.pubDate).toLocaleDateString();
+blogCard.appendChild(date);
 }
 
 const searchInput = document.getElementById("search-input");
@@ -70,4 +74,11 @@ searchButton.addEventListener('click', async () => {
     const articles = await fetchNews();
     displayBlogs(articles);
 })();
+
+
+const themeToggle = document.getElementById("theme-toggle");
+
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+});
 

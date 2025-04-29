@@ -130,3 +130,44 @@ nav{
     }
 
 }
+
+
+
+
+
+.dark-theme {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-theme .blog-card {
+    background: #1f1f1f;
+    box-shadow: 0px 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+/* Search and buttons */
+.search-container input,
+#search-button,
+#theme-toggle {
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+#search-button, #theme-toggle {
+    background-color: #ffc107;
+    color: black;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.dark-theme #search-button,
+.dark-theme #theme-toggle {
+    background-color: #ffca28;
+    color: #121212;
+}
+.dark-theme h2 {
+    color: #ffc107; 
+}
